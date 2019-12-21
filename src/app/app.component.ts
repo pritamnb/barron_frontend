@@ -22,10 +22,10 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   navLinks = [
     {
-      path: 'wordlist', label: 'wordlist'
+      path: 'wordlist', label: 'word List'
     },
     {
-      path: 'cards', label: 'cards'
+      path: 'cards', label: 'Cards'
     }
   ];
 

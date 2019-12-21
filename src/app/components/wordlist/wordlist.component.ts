@@ -69,8 +69,10 @@ export class wordlistComponent implements OnInit {
 
   }
   onBookmark(word, meaning, i, state) {
+    console.log(state);
 
     this.words[i]['bookmarked'] = state;
+
     this.isBookmarked = !this.isBookmarked;
 
   }

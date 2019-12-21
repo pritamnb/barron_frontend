@@ -14,11 +14,11 @@
       <div class="bookmark">
         <div class="image-section">
           <ng-container *ngIf="!item.bookmarked">
-            <img (click)="onBookmark(item.word,item.meaning,i,'true')" class="image-bookmark"
+            <img (click)="onBookmark(item.word,item.meaning,i,true)" class="image-bookmark"
               src="../../../assets/icons/icons8-bookmark-100.png">
           </ng-container>
           <ng-container *ngIf="item.bookmarked">
-            <img (click)=" onBookmark(item.word,item.meaning,i,'false')" class="image-bookmark"
+            <img (click)=" onBookmark(item.word,item.meaning,i,false)" class="image-bookmark"
               src="../../../assets/icons/icons8-bookmarked-100.png">
           </ng-container>
 

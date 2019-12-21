@@ -101,3 +101,13 @@ body {
   padding: 0 24px 16px;
   display: flex !important;
 }
+.mat-expansion-panel:last-of-type {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.mat-expansion-panel:first-child {
+  margin-top: 0px !important;
+}
+.mat-expansion-panel-spacing:last-child {
+  margin-bottom: 10px !important;
+}
