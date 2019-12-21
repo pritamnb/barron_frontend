@@ -1,0 +1,23 @@
+.word-list {
+  padding: 10px;
+  .bookmark {
+    width: 4%;
+    display: flex;
+    justify-content: flex-end;
+
+    margin-right: -11px;
+
+    .image-section {
+      .image-bookmark {
+        width: 30px;
+        height: 26px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .word-meaning {
+    width: 100%;
+  }
+}
