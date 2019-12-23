@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { wordlistComponent } from './components/wordlist/wordlist.component';
+import { WordlistComponent } from './components/wordlist/wordlist.component';
 import { CardsComponent } from './components/cards/cards.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'wordlist' },
-  { path: 'wordlist', component: wordlistComponent },
+  { path: 'wordlist', component: WordlistComponent },
   { path: 'cards', component: CardsComponent }
 ];
 

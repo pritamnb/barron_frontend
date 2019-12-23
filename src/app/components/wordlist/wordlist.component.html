@@ -1,13 +1,13 @@
+<div class="search-filter">
+  <div class="search">
+    <input class="inout-type-text" type="text" name="search" placeholder="Search..">
+  </div>
+  <div class="filter">
+    <div class="btn-primary" (click)="onFilter()"> filter</div>
+  </div>
+</div>
 <div class="word-list">
 
-  <div class="search-filter">
-    <div class="search">
-      search
-    </div>
-    <div class="filter">
-      filter
-    </div>
-  </div>
   <mat-accordion *ngFor="let item of words; let i = index">
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header>

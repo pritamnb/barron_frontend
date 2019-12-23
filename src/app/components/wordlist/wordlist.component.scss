@@ -1,30 +1,56 @@
+.search-filter {
+  width: -webkit-fill-available;
+  height: 60px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  background-color: white;
+  z-index: 1;
+  .search {
+    background-color: white;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //
+    .inout-type-text {
+      width: 130px;
+      box-sizing: border-box;
+      border: 2px solid #887979;
+      border-radius: 30px;
+      font-size: 16px;
+      background-color: white;
+      // background-image: url('../../../assets/icons/icons8-search-30.png');
+      background-position: 10px 10px;
+      background-repeat: no-repeat;
+      padding: 12px 20px 12px 20px;
+      -webkit-transition: width 0.4s ease-in-out;
+      transition: width 0.4s ease-in-out;
+    }
+
+    input[type='text']:focus {
+      width: 100%;
+      outline: none;
+    }
+    //
+  }
+  .filter {
+    background-color: white;
+
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .word-list {
   width: 100%;
   height: 100%;
-  .search-filter {
-    height: 100px;
-    border: 1px solid;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    .search {
-      width: 50%;
-      height: 100%;
-      border: 1px solid;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .filter {
-      width: 50%;
-      height: 100%;
-      border: 1px solid;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-
+  padding: 90px 0px 0px 0px;
   .bookmark {
     width: 5%;
     display: flex;

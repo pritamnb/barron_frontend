@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { log } from 'util';
-
+import {
+  Component, OnInit,
+  OnDestroy,
+  ComponentFactoryResolver
+} from '@angular/core';
+import { ModalService } from '../../shared/modal/modal.service';
+import { FilterModalComponent } from '../modals/filter-modal/filter-modal.component';
 @Component({
   selector: 'app-wordlist',
   templateUrl: './wordlist.component.html',
   styleUrls: ['./wordlist.component.scss']
 })
-export class wordlistComponent implements OnInit {
+export class WordlistComponent implements OnInit {
   words = [];
   panelOpenState = false;
   isBookmarked = false;
-  constructor() {
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private modalService: ModalService, ) {
     this.words = [
       {
         word: 'Abate',
@@ -61,6 +67,46 @@ export class wordlistComponent implements OnInit {
         word: 'Alacrity',
         meaning: 'cheerful promptness; eagerness',
         bookmarked: false
+      },
+      {
+        word: 'Abeyance',
+        meaning: 'suspended action',
+        bookmarked: false
+      },
+      {
+        word: 'Abscond',
+        meaning: 'depart secretly and hide',
+        bookmarked: false
+      },
+      {
+        word: 'Abstemious',
+        meaning: 'sparing in eating and drinking; temperate',
+        bookmarked: false
+      },
+      {
+        word: 'Admonish',
+        meaning: 'warn; reprove',
+        bookmarked: false
+      },
+      {
+        word: 'Abeyance',
+        meaning: 'suspended action',
+        bookmarked: false
+      },
+      {
+        word: 'Abscond',
+        meaning: 'depart secretly and hide',
+        bookmarked: false
+      },
+      {
+        word: 'Abstemious',
+        meaning: 'sparing in eating and drinking; temperate',
+        bookmarked: false
+      },
+      {
+        word: 'Admonish',
+        meaning: 'warn; reprove',
+        bookmarked: false
       }
     ];
   }
@@ -75,5 +121,25 @@ export class wordlistComponent implements OnInit {
 
     this.isBookmarked = !this.isBookmarked;
 
+  }
+  onFilter() {
+    console.log('Im clicked');
+
+    this.openModal(FilterModalComponent);
+  }
+  // modal opener
+  openModal(component) {
+    const addModal = this.componentFactoryResolver.resolveComponentFactory(
+      component
+    );
+    const modal$ = this.modalService.createFromFactory(addModal, {
+      modalTitle: 'Demo Title',
+      isAdd: true,
+      onSubmit: res => {
+        console.log('HERE');
+
+        console.log(res);
+      }
+    });
   }
 }
