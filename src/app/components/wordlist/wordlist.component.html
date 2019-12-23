@@ -1,4 +1,13 @@
 <div class="word-list">
+
+  <div class="search-filter">
+    <div class="search">
+      search
+    </div>
+    <div class="filter">
+      filter
+    </div>
+  </div>
   <mat-accordion *ngFor="let item of words; let i = index">
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
