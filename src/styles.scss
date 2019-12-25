@@ -120,8 +120,9 @@ body {
   box-shadow: 0px 2px 10px #aaaaaa;
   background-color: white;
 }
-//modal for media query
-@media only screen and (min-width: 600px) {
+//modal for media query desktop
+
+@media only screen and (min-width: 700px) {
   .modal-wrapper {
     width: 100%;
     height: 100%;
@@ -184,68 +185,68 @@ body {
   }
 }
 // modal
-
-.modal-wrapper {
-  width: 100%;
-  height: 100%;
-  z-index: 1000;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-
-  .dialog {
-    position: fixed;
+@media only screen and (min-width: 300px) {
+  .modal-wrapper {
+    width: 100%;
+    height: 100%;
     z-index: 1000;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    min-height: 330px;
-    min-width: 300px;
-    background-color: #fff;
-    box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14),
-      0 5px 24px 4px rgba(0, 0, 0, 0.12);
-    border-radius: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
 
-    .modal-header {
-      background-color: white;
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 0.1px solid lightgray;
-      box-shadow: 0px 0.1px 3px rgba(0, 0, 0, 0.1);
-      border-radius: 10px 10px 0px 0px;
-      font-size: 14px;
+    .dialog {
+      position: fixed;
+      z-index: 1000;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      min-height: 330px;
+      min-width: 300px;
+      background-color: #fff;
+      box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14),
+        0 5px 24px 4px rgba(0, 0, 0, 0.12);
+      border-radius: 10px;
 
-      label {
-        color: white;
+      .modal-header {
+        background-color: white;
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 0.1px solid lightgray;
+        box-shadow: 0px 0.1px 3px rgba(0, 0, 0, 0.1);
+        border-radius: 10px 10px 0px 0px;
+        font-size: 14px;
+
+        label {
+          color: white;
+        }
+
+        .cross-icon {
+          cursor: pointer;
+        }
       }
 
-      .cross-icon {
-        cursor: pointer;
+      .modal-body {
+        display: block;
+        min-height: 222px;
+        max-height: 500px;
+        overflow: auto;
       }
-    }
 
-    .modal-body {
-      display: block;
-      min-height: 222px;
-      max-height: 500px;
-      overflow: auto;
-    }
-
-    .modal-footer {
-      background-color: white;
-      padding: 16px;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      border-top: 0.1px solid lightgray;
-      box-shadow: 0px -1.1px 3px rgba(0, 0, 0, 0.1);
-      border-radius: 0px 0px 10px 10px;
+      .modal-footer {
+        background-color: white;
+        padding: 16px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        border-top: 0.1px solid lightgray;
+        box-shadow: 0px -1.1px 3px rgba(0, 0, 0, 0.1);
+        border-radius: 0px 0px 10px 10px;
+      }
     }
   }
 }
-
 // btn
 
 .btn-primary {
@@ -284,17 +285,20 @@ body {
   box-shadow: 0 1px 2px #666;
   transform: translateY(2px);
 }
-
-.btn-secondary {
-  width: 170px;
+// btns
+.btn-green {
+  // min-width: 100px;
+  // // max-width: 170px;
+  width: auto;
   font-weight: 500;
   height: 32px;
-  border-radius: 10px;
+  border-radius: 6px;
+  padding: 0px 10px 0px 10px;
   margin-right: 16px;
-  border: 1px solid #d8d8d8;
-  background-color: #ffffff;
-  color: #000000;
-  font-size: 14px;
+  border: 1px solid #168f48;
+  background-color: #1aaa55;
+  color: white;
+  font-size: 12px;
   opacity: 1;
   outline: none;
   cursor: pointer;
@@ -311,13 +315,133 @@ body {
   box-shadow: 0px 1px 2px #d8d8d8;
 
   p {
-    max-width: 160px;
+    max-width: 114px;
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .fa {
+    margin-right: 6px;
+  }
 }
 
-.btn-secondary:active {
+.btn-green:hover {
+  // box-shadow: 0 1px 2px #666;
+  // transform: translateY(2px);
+  background-color: #168f48;
+  border-color: #12753a;
+  color: #fff;
+}
+
+.btn-blue {
+  // min-width: 100px;
+  // // max-width: 170px;
+  width: auto;
+  font-weight: 500;
+  height: 32px;
+  border-radius: 6px;
+  padding: 0px 10px 0px 10px;
+  margin-right: 16px;
+  border: 1px solid #1f78d1;
+  background-color: #1f78d1;
+  color: white;
+  font-size: 12px;
+  opacity: 1;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  transition: all ease 0.3s;
+  box-shadow: 0px 1px 2px #d8d8d8;
+
+  p {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .fa {
+    margin-right: 6px;
+  }
+}
+
+.btn-blue:hover {
+  // box-shadow: 0 1px 2px #666;
+  // transform: translateY(2px);
+  background-color: #1b69b6;
+  border-color: #17599c;
+  color: #fff;
+}
+
+.btn-red {
+  // min-width: 100px;
+  // // max-width: 170px;
+  width: auto;
+  font-weight: 500;
+  height: 32px;
+  border-radius: 6px;
+  padding: 0px 10px 0px 10px;
+  margin-right: 16px;
+  border: 1px solid #c0341d;
+  background-color: #db3b21;
+  color: white;
+  font-size: 12px;
+  opacity: 1;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  transition: all ease 0.3s;
+  box-shadow: 0px 1px 2px #d8d8d8;
+
+  p {
+    max-width: 74px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .fa {
+    margin-right: 6px;
+  }
+
+  .fa-trash-o {
+    color: white;
+  }
+}
+
+.btn-red:active {
   box-shadow: 0 1px 2px #666;
   transform: translateY(2px);
+}
+// btns end
+// modal dropdown
+.mat-form-field {
+  font-size: 14px;
+}
+.mat-select-panel {
+  min-width: calc(100% + 20px) !important;
+}
+.mat-option {
+  font-size: xx-small !important;
+}
+.cdk-overlay-pane {
+  margin-top: 30px;
+  margin-left: 30px;
+}
+.mat-card {
+  padding: 8px !important;
 }

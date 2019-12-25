@@ -1,6 +1,6 @@
 import { FilterModalComponent } from './components/modals/filter-modal/filter-modal.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -10,6 +10,7 @@ import { WordlistComponent } from './components/wordlist/wordlist.component';
 import { CardsComponent } from './components/cards/cards.component';
 import { MatTabsModule } from '@angular/material';
 import { ModalModule } from './shared/modal/modal.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,8 +27,11 @@ import { ModalModule } from './shared/modal/modal.module';
     BrowserAnimationsModule,
     MaterialModule,
     MatTabsModule,
-    ModalModule
+    ModalModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [

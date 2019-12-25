@@ -1,0 +1,28 @@
+.container {
+  // width: 100%;
+  min-height: 218px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  .row-divide-section {
+    max-height: 50px;
+    // border: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .col-divide-section-left {
+      width: 40%;
+      height: 30px;
+
+      display: flex;
+      justify-content: flex-start;
+    }
+    .col-divide-section-right {
+      width: 60%;
+      // height: 50%;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

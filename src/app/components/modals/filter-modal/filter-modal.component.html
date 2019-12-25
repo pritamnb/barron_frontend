@@ -1,18 +1,62 @@
 <div class="modal-wrapper">
   <div class="dialog">
     <div class="modal-header ">
-      <span class="headers">Header goes here</span>
+      <span class="headers">Apply filters</span>
 
     </div>
 
     <div class="modal-body">
-
+      <div class="container">
+        <div class="row-divide-section">
+          <div class="col-divide-section-left">
+            <mat-card> Select list</mat-card>
+          </div>
+          <div class="col-divide-section-right">
+            <!-- select a-z and all by default -->
+            <mat-form-field>
+              <mat-select placeholder="List" [formControl]=" selectList" multiple>
+                <mat-option *ngFor="let list of selectSortList" [value]="list">{{list}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row-divide-section">
+          <div class="col-divide-section-left">
+            <mat-card>
+              Sort list
+            </mat-card>
+          </div>
+          <div class="col-divide-section-right">
+            <!-- sort asce desc -->
+            <mat-form-field>
+              <mat-select placeholder="Order" [formControl]="sortByAscDesc">
+                <mat-option *ngFor="let order of ascDesc" [value]="order"> {{order}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row-divide-section">
+          <div class="col-divide-section-left">
+            <mat-card>
+              Filter
+            </mat-card>
+          </div>
+          <div class="col-divide-section-right">
+            <mat-form-field>
+              <mat-select placeholder="Filter by Bookmark" [formControl]="filterByBookmark">
+                <mat-option *ngFor="let filter of selectBookmark" [value]="filter">{{filter}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="modal-footer">
-      <div class="btn-primary" type="submit">
-        <i class="fa fa-refresh" aria-hidden="true"></i><span>Login</span>
-        <span *ngIf="false">Add</span>
+      <div class="btn-blue" type="submit" (click)="onApply()">
+        <i class="fa fa-filter" aria-hidden="true"></i><span>Apply</span>
       </div>
+      <div class="btn-red" (click)="close()"><i class="fa fa-times" aria-hidden="true"></i><span>Cancel</span></div>
     </div>
   </div>
 </div>
