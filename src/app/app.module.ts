@@ -11,6 +11,8 @@ import { CardsComponent } from './components/cards/cards.component';
 import { MatTabsModule } from '@angular/material';
 import { ModalModule } from './shared/modal/modal.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MyHttpInterceptor } from './shared/services/http-interceptor';
 
 
 @NgModule({
@@ -29,10 +31,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatTabsModule,
     ModalModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     FilterModalComponent

@@ -5,119 +5,137 @@ import {
 } from '@angular/core';
 import { ModalService } from '../../shared/modal/modal.service';
 import { FilterModalComponent } from '../modals/filter-modal/filter-modal.component';
+import { WordListService } from '../../shared/services/word-list.service';
+import { Subscribable, Subscription } from 'rxjs';
+import { LoaderService } from '../../shared/services/loader.service';
 @Component({
   selector: 'app-wordlist',
   templateUrl: './wordlist.component.html',
   styleUrls: ['./wordlist.component.scss']
 })
-export class WordlistComponent implements OnInit {
-  words = [];
+export class WordlistComponent implements OnInit, OnDestroy {
+  // subscriptions
+  listWordsSubscription: Subscription;
+  words: any;
   panelOpenState = false;
   isBookmarked = false;
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private modalService: ModalService, ) {
-    this.words = [
-      {
-        word: 'Abate',
-        meaning: 'subside , or moderate',
-        bookmarked: false
-      },
-      {
-        word: 'Aberrant',
-        meaning: 'abnormal, or deviant',
-        bookmarked: false
-      },
-      {
-        word: 'Abeyance',
-        meaning: 'suspended action',
-        bookmarked: false
-      },
-      {
-        word: 'Abscond',
-        meaning: 'depart secretly and hide',
-        bookmarked: false
-      },
-      {
-        word: 'Abstemious',
-        meaning: 'sparing in eating and drinking; temperate',
-        bookmarked: false
-      },
-      {
-        word: 'Admonish',
-        meaning: 'warn; reprove',
-        bookmarked: false
-      },
-      {
-        word: 'Adulterate',
-        meaning: 'make impure by adding inferior or tainted substances',
-        bookmarked: false
-      },
-      {
-        word: 'Aesthetic',
-        meaning: 'artistic; dealing with or capable of appreciating the beautiful',
-        bookmarked: false
-      },
-      {
-        word: 'Aggregate',
-        meaning: 'gather; accumulate',
-        bookmarked: false
-      },
-      {
-        word: 'Alacrity',
-        meaning: 'cheerful promptness; eagerness',
-        bookmarked: false
-      },
-      {
-        word: 'Abeyance',
-        meaning: 'suspended action',
-        bookmarked: false
-      },
-      {
-        word: 'Abscond',
-        meaning: 'depart secretly and hide',
-        bookmarked: false
-      },
-      {
-        word: 'Abstemious',
-        meaning: 'sparing in eating and drinking; temperate',
-        bookmarked: false
-      },
-      {
-        word: 'Admonish',
-        meaning: 'warn; reprove',
-        bookmarked: false
-      },
-      {
-        word: 'Abeyance',
-        meaning: 'suspended action',
-        bookmarked: false
-      },
-      {
-        word: 'Abscond',
-        meaning: 'depart secretly and hide',
-        bookmarked: false
-      },
-      {
-        word: 'Abstemious',
-        meaning: 'sparing in eating and drinking; temperate',
-        bookmarked: false
-      },
-      {
-        word: 'Admonish',
-        meaning: 'warn; reprove',
-        bookmarked: false
-      }
-    ];
-  }
+    private modalService: ModalService,
+    private wordlistService: WordListService,
+    private loaderService: LoaderService
 
+  ) {
+    // this.words = [
+    //   {
+    //     word: 'Abate',
+    //     meaning: 'subside , or moderate',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Aberrant',
+    //     meaning: 'abnormal, or deviant',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Abeyance',
+    //     meaning: 'suspended action',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Abscond',
+    //     meaning: 'depart secretly and hide',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Abstemious',
+    //     meaning: 'sparing in eating and drinking; temperate',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Admonish',
+    //     meaning: 'warn; reprove',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Adulterate',
+    //     meaning: 'make impure by adding inferior or tainted substances',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Aesthetic',
+    //     meaning: 'artistic; dealing with or capable of appreciating the beautiful',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Aggregate',
+    //     meaning: 'gather; accumulate',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Alacrity',
+    //     meaning: 'cheerful promptness; eagerness',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Abeyance',
+    //     meaning: 'suspended action',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Abscond',
+    //     meaning: 'depart secretly and hide',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Abstemious',
+    //     meaning: 'sparing in eating and drinking; temperate',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Admonish',
+    //     meaning: 'warn; reprove',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Abeyance',
+    //     meaning: 'suspended action',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Abscond',
+    //     meaning: 'depart secretly and hide',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Abstemious',
+    //     meaning: 'sparing in eating and drinking; temperate',
+    //     bookmarked: false
+    //   },
+    //   {
+    //     word: 'Admonish',
+    //     meaning: 'warn; reprove',
+    //     bookmarked: false
+    //   }
+    // ];
+  }
   ngOnInit() {
+    this.loaderService.resetLoader();
+    this.getWords();
+  }
+  getWords() {
+    this.listWordsSubscription = this.wordlistService.onListWords().subscribe(res => {
+      this.words = res;
+      this.loaderService.closeLoader();
+    }, err => {
+      console.log('Network error', err);
+    });
 
   }
   onBookmark(word, meaning, i, state) {
     console.log(state);
 
-    this.words[i]['bookmarked'] = state;
+    this.words[i].bookmarked = state;
 
     this.isBookmarked = !this.isBookmarked;
 
@@ -141,5 +159,10 @@ export class WordlistComponent implements OnInit {
         console.log(res);
       }
     });
+  }
+  ngOnDestroy() {
+    if (this.listWordsSubscription) {
+      this.listWordsSubscription.unsubscribe();
+    }
   }
 }
