@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalContainer } from '../../../shared/modal/modal.container';
 import { NgModel, FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { WordListService } from '../../../shared/services/word-list.service';
 
 @Component({
   selector: 'app-filter-modal',
@@ -9,6 +11,7 @@ import { NgModel, FormControl } from '@angular/forms';
   // animations: [fade]
 })
 export class FilterModalComponent extends ModalContainer implements OnInit {
+  filterWordsSubscription: Subscription;
   selectall: boolean;
   selectedListSortValue: any;
   ascDescItem: any;
@@ -31,7 +34,7 @@ export class FilterModalComponent extends ModalContainer implements OnInit {
   ];
 
 
-  constructor() {
+  constructor(private wordlistservice: WordListService) {
     super();
     this.selectall = false;
     this.selectList.setValue([
@@ -66,11 +69,42 @@ export class FilterModalComponent extends ModalContainer implements OnInit {
     }
   }
   onApply() {
-    console.log('selected sorting type-', this.selectedListSortValue);
-    console.log('order-', this.ascDescItem);
-    console.log('bookmarked-', this.bookmarkItem);
+    let bookmark;
+    let order;
+    let listCount;
+    console.log('selected sorting type-', this.selectList.value.length);
+    listCount = this.selectList.value.length;
+    console.log('order-', this.sortByAscDesc.value);
+    console.log('bookmarked-', this.filterByBookmark.value);
+    if (listCount > 1) {
+      //
+      if (this.selectList.value.includes('All')) {
+        const index = this.selectList.value.indexOf('All');
+        this.selectList.value.splice(index, 1);
+      }
+      console.log('***&&&****', this.selectList.value);
+    }
 
+    if (this.sortByAscDesc.value === 'ascending') {
+      order = 1;
+    } else {
+      order = -1;
+    }
+    if (this.filterByBookmark.value === 'marked') {
+      bookmark = true;
+    } else if (this.filterByBookmark.value === 'unmarked') {
+      bookmark = false;
+    } else { bookmark = this.filterByBookmark.value }
 
+    const payload = {
+      list: this.selectList.value,
+      order,
+      bookmark
+    };
+    console.log(payload);
+    this.filterWordsSubscription = this.wordlistservice.filterOnWords(payload).subscribe(res => {
+      console.log(res);
+    });
   }
 
   close() {

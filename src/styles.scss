@@ -146,7 +146,8 @@ body {
       border-radius: 10px;
 
       .modal-header {
-        background-color: white;
+        background-color: #1a2737;
+        color: white;
         padding: 16px;
         display: flex;
         justify-content: space-between;
@@ -172,7 +173,7 @@ body {
       }
 
       .modal-footer {
-        background-color: white;
+        background-color: #1c2b3e;
         padding: 16px;
         display: flex;
         justify-content: flex-end;
@@ -209,7 +210,8 @@ body {
       border-radius: 10px;
 
       .modal-header {
-        background-color: white;
+        background-color: #1a2737;
+        color: white;
         padding: 16px;
         display: flex;
         justify-content: space-between;
@@ -235,7 +237,7 @@ body {
       }
 
       .modal-footer {
-        background-color: white;
+        background-color: #1c2b3e;
         padding: 16px;
         display: flex;
         justify-content: flex-end;
@@ -252,10 +254,10 @@ body {
 .btn-primary {
   width: 100px;
   font-weight: 500;
-  height: 32px;
-  border-radius: 6px;
-  margin-right: 16px;
-  border: 1px solid #d8d8d8;
+  height: 26px;
+  border-radius: 20px;
+  // margin-right: 16px;
+  border: 1px solid #887979;
   background-color: #ffffff;
   color: #000000;
   font-size: 12px;
@@ -342,10 +344,10 @@ body {
   border-radius: 6px;
   padding: 0px 10px 0px 10px;
   margin-right: 16px;
-  border: 1px solid #1f78d1;
-  background-color: #1f78d1;
-  color: white;
-  font-size: 12px;
+  // border: 1px solid #1f78d1;
+  background-color: white;
+  color: black;
+  font-size: 14px;
   opacity: 1;
   outline: none;
   cursor: pointer;
@@ -359,7 +361,7 @@ body {
   user-select: none;
   white-space: nowrap;
   transition: all ease 0.3s;
-  box-shadow: 0px 1px 2px #d8d8d8;
+  // box-shadow: 0px 1px 2px #d8d8d8;
 
   p {
     max-width: 100px;
@@ -373,11 +375,11 @@ body {
 }
 
 .btn-blue:hover {
-  // box-shadow: 0 1px 2px #666;
-  // transform: translateY(2px);
-  background-color: #1b69b6;
-  border-color: #17599c;
-  color: #fff;
+  box-shadow: 0 1px 2px #666;
+  transform: translateY(2px);
+  background-color: white;
+  color: black;
+  font-weight: 600;
 }
 
 .btn-red {
@@ -389,7 +391,7 @@ body {
   border-radius: 6px;
   padding: 0px 10px 0px 10px;
   margin-right: 16px;
-  border: 1px solid #c0341d;
+  // border: 1px solid #c0341d;
   background-color: #db3b21;
   color: white;
   font-size: 12px;
@@ -406,7 +408,7 @@ body {
   user-select: none;
   white-space: nowrap;
   transition: all ease 0.3s;
-  box-shadow: 0px 1px 2px #d8d8d8;
+  // box-shadow: 0px 1px 2px #d8d8d8;
 
   p {
     max-width: 74px;
@@ -420,6 +422,10 @@ body {
 
   .fa-trash-o {
     color: white;
+  }
+  &:hover {
+    transform: translateY(2px);
+    font-weight: 600;
   }
 }
 
@@ -450,4 +456,20 @@ body {
 }
 .mat-option-text {
   font-size: 12px !important;
+}
+
+// scroll css
+::-webkit-scrollbar-track {
+  // margin-top: 170px;
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b3a5a !important;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
 }

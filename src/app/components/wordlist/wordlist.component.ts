@@ -1,12 +1,13 @@
 import {
   Component, OnInit,
   OnDestroy,
-  ComponentFactoryResolver
+  ComponentFactoryResolver,
+  ChangeDetectorRef
 } from '@angular/core';
 import { ModalService } from '../../shared/modal/modal.service';
 import { FilterModalComponent } from '../modals/filter-modal/filter-modal.component';
 import { WordListService } from '../../shared/services/word-list.service';
-import { Subscribable, Subscription } from 'rxjs';
+import { Subscription, Subscriber } from 'rxjs';
 import { LoaderService } from '../../shared/services/loader.service';
 @Component({
   selector: 'app-wordlist',
@@ -16,6 +17,7 @@ import { LoaderService } from '../../shared/services/loader.service';
 export class WordlistComponent implements OnInit, OnDestroy {
   // subscriptions
   listWordsSubscription: Subscription;
+  bookmarkWordSubscription: Subscription;
   words: any;
   panelOpenState = false;
   isBookmarked = false;
@@ -23,120 +25,39 @@ export class WordlistComponent implements OnInit, OnDestroy {
     private componentFactoryResolver: ComponentFactoryResolver,
     private modalService: ModalService,
     private wordlistService: WordListService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private cdr: ChangeDetectorRef
 
   ) {
-    // this.words = [
-    //   {
-    //     word: 'Abate',
-    //     meaning: 'subside , or moderate',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Aberrant',
-    //     meaning: 'abnormal, or deviant',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Abeyance',
-    //     meaning: 'suspended action',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Abscond',
-    //     meaning: 'depart secretly and hide',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Abstemious',
-    //     meaning: 'sparing in eating and drinking; temperate',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Admonish',
-    //     meaning: 'warn; reprove',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Adulterate',
-    //     meaning: 'make impure by adding inferior or tainted substances',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Aesthetic',
-    //     meaning: 'artistic; dealing with or capable of appreciating the beautiful',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Aggregate',
-    //     meaning: 'gather; accumulate',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Alacrity',
-    //     meaning: 'cheerful promptness; eagerness',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Abeyance',
-    //     meaning: 'suspended action',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Abscond',
-    //     meaning: 'depart secretly and hide',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Abstemious',
-    //     meaning: 'sparing in eating and drinking; temperate',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Admonish',
-    //     meaning: 'warn; reprove',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Abeyance',
-    //     meaning: 'suspended action',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Abscond',
-    //     meaning: 'depart secretly and hide',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Abstemious',
-    //     meaning: 'sparing in eating and drinking; temperate',
-    //     bookmarked: false
-    //   },
-    //   {
-    //     word: 'Admonish',
-    //     meaning: 'warn; reprove',
-    //     bookmarked: false
-    //   }
-    // ];
+    this.wordlistService.getWords().subscribe(res => {
+      this.words = res['words'];
+      console.log(this.words.words);
+    });
   }
   ngOnInit() {
-    this.loaderService.resetLoader();
     this.getWords();
   }
   getWords() {
     this.listWordsSubscription = this.wordlistService.onListWords().subscribe(res => {
-      this.words = res;
-      this.loaderService.closeLoader();
+      // this.words = res;
+      this.wordlistService.setWords(res);
+      console.log(this.words.length);
+      if (this.words) { this.cdr.detectChanges(); }
     }, err => {
       console.log('Network error', err);
     });
 
   }
-  onBookmark(word, meaning, i, state) {
-    console.log(state);
+  onBookmark(id: any, word, meaning, i, state) {
+    console.log('bookmarked word', id, word, state);
 
-    this.words[i].bookmarked = state;
-
+    this.bookmarkWordSubscription = this.wordlistService.bookmarkWord(id, { state }).subscribe(res => {
+      console.log(res);
+      if (res) {
+        this.words[i].bookmarked = res.bookmarked;
+        this.cdr.detectChanges();
+      }
+    });
     this.isBookmarked = !this.isBookmarked;
 
   }

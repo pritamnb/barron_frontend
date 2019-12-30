@@ -9,6 +9,8 @@ export class HttpConstants {
 
 export class ApiEndPoints {
   static WORDS = {
-    LIST_WORDS: 'api/words'
+    LIST_WORDS: 'api/words',
+    BOOKMARK: 'api/words/bookmark/%s',
+    FILTER: 'api/words/filter'
   };
 }
