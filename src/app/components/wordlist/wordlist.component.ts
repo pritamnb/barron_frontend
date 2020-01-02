@@ -30,8 +30,8 @@ export class WordlistComponent implements OnInit, OnDestroy {
 
   ) {
     this.wordlistService.getWords().subscribe(res => {
-      this.words = res['words'];
-      console.log(this.words.words);
+      this.words = res;
+      console.log(this.words);
     });
   }
   ngOnInit() {
@@ -41,7 +41,7 @@ export class WordlistComponent implements OnInit, OnDestroy {
     this.listWordsSubscription = this.wordlistService.onListWords().subscribe(res => {
       // this.words = res;
       this.wordlistService.setWords(res);
-      console.log(this.words.length);
+      console.log('first subscribe', res);
       if (this.words) { this.cdr.detectChanges(); }
     }, err => {
       console.log('Network error', err);
@@ -58,7 +58,6 @@ export class WordlistComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       }
     });
-    this.isBookmarked = !this.isBookmarked;
 
   }
   onFilter() {
@@ -77,7 +76,11 @@ export class WordlistComponent implements OnInit, OnDestroy {
       onSubmit: res => {
         console.log('HERE');
 
-        console.log(res);
+        console.log('In modal res', res);
+        this.words = res;
+        this.wordlistService.setWords(res);
+        this.cdr.detectChanges();
+
       }
     });
   }

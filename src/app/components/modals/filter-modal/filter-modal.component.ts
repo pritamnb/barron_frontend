@@ -19,7 +19,7 @@ export class FilterModalComponent extends ModalContainer implements OnInit {
   selectList = new FormControl();
   sortByAscDesc = new FormControl();
   filterByBookmark = new FormControl();
-
+  onSubmit: Function;
 
   selectSortList: string[] = ['All', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
     'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
@@ -34,7 +34,7 @@ export class FilterModalComponent extends ModalContainer implements OnInit {
   ];
 
 
-  constructor(private wordlistservice: WordListService) {
+  constructor(private wordlistService: WordListService) {
     super();
     this.selectall = false;
     this.selectList.setValue([
@@ -102,8 +102,13 @@ export class FilterModalComponent extends ModalContainer implements OnInit {
       bookmark
     };
     console.log(payload);
-    this.filterWordsSubscription = this.wordlistservice.filterOnWords(payload).subscribe(res => {
+    this.filterWordsSubscription = this.wordlistService.filterOnWords(payload).subscribe(res => {
       console.log(res);
+      this.wordlistService.setWords(res);
+      if (res) {
+        this.onSubmit(res);
+        this.closeModal();
+      }
     });
   }
 

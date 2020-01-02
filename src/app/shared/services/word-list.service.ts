@@ -25,8 +25,9 @@ export class WordListService {
   }
   // observables
 
-  setWords(wordlist = {}) {
-    this.words.next({ words: wordlist });
+  setWords(wordlist) {
+    console.log(wordlist);
+    this.words.next(wordlist);
 
   }
   getWords(): Observable<any> {
