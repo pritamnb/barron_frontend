@@ -85,14 +85,14 @@ export class FilterModalComponent extends ModalContainer implements OnInit {
       console.log('***&&&****', this.selectList.value);
     }
 
-    if (this.sortByAscDesc.value === 'ascending') {
+    if (this.sortByAscDesc.value === 'Ascending') {
       order = 1;
     } else {
       order = -1;
     }
     if (this.filterByBookmark.value === 'marked') {
       bookmark = true;
-    } else if (this.filterByBookmark.value === 'unmarked') {
+    } else if (this.filterByBookmark.value === 'Unmarked') {
       bookmark = false;
     } else { bookmark = this.filterByBookmark.value }
 
