@@ -23,6 +23,10 @@ export class WordListService {
     this.newEndPoint = this.tempEndpoint + ApiEndPoints.WORDS.FILTER;
     return this.httpService.post(this.newEndPoint, payload);
   }
+  searchWord(payload) {
+    this.newEndPoint = this.tempEndpoint + ApiEndPoints.WORDS.SEARCH_WORD;
+    return this.httpService.post(this.newEndPoint, payload);
+  }
   // observables
 
   setWords(wordlist) {

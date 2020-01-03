@@ -7,15 +7,21 @@ import {
 import { ModalService } from '../../shared/modal/modal.service';
 import { FilterModalComponent } from '../modals/filter-modal/filter-modal.component';
 import { WordListService } from '../../shared/services/word-list.service';
-import { Subscription, Subscriber } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { LoaderService } from '../../shared/services/loader.service';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
 @Component({
   selector: 'app-wordlist',
   templateUrl: './wordlist.component.html',
   styleUrls: ['./wordlist.component.scss']
 })
 export class WordlistComponent implements OnInit, OnDestroy {
+  // observables
+  private subject: Subject<string> = new Subject();
+
   // subscriptions
+  searchSubscription: Subscription;
   listWordsSubscription: Subscription;
   bookmarkWordSubscription: Subscription;
   words: any;
@@ -35,7 +41,44 @@ export class WordlistComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit() {
-    this.getWords();
+    // this.getWords();
+    this.subject
+      .pipe(
+        debounceTime(400),
+        distinctUntilChanged()
+      )
+      .subscribe(res => {
+        const payload = {
+          searchQuery: res
+        };
+
+        this.searchWord(payload);
+      });
+  }
+  onKey(e) {
+    this.subject.next(e);
+  }
+
+  searchWord(searchTerm) {
+    const searchTermLength = searchTerm['searchQuery'].length;
+
+    if (searchTermLength > 0) {
+      this.searchSubscription = this.wordlistService
+        .searchWord(searchTerm)
+        .subscribe(
+          res => {
+            // this.words = res;
+            this.wordlistService.setWords(res);
+            this.cdr.detectChanges();
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    } else {
+      // this.getProjectList(this.limit, this.offset, this.sort);
+      this.getWords();
+    }
   }
   getWords() {
     this.listWordsSubscription = this.wordlistService.onListWords().subscribe(res => {
@@ -65,6 +108,7 @@ export class WordlistComponent implements OnInit, OnDestroy {
 
     this.openModal(FilterModalComponent);
   }
+
   // modal opener
   openModal(component) {
     const addModal = this.componentFactoryResolver.resolveComponentFactory(

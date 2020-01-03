@@ -11,6 +11,7 @@ export class ApiEndPoints {
   static WORDS = {
     LIST_WORDS: 'api/words',
     BOOKMARK: 'api/words/bookmark/%s',
-    FILTER: 'api/words/filter'
+    FILTER: 'api/words/filter',
+    SEARCH_WORD: 'api/words/searchWord'
   };
 }
